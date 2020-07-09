@@ -1,0 +1,10 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+[[mods]] 
+modId="azurejarjar"
+version="${file.jarVersion}" 
+displayName="Jar Jar Binks"
+authors="AzureDoomC" 
+description='''
+Adds Jar Jar Binks into Minecraft
+'''
