@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import mod.azure.jarjar.entity.ai.goals.DarthJarJarAttackGoal;
 import mod.azure.jarjar.util.ModSoundEvents;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -42,8 +43,8 @@ public class DarthJarJarEntity extends MonsterEntity {
 
 	public static AttributeModifierMap.MutableAttribute func_234200_m_() {
 		return MobEntity.func_233666_p_().func_233815_a_(Attributes.field_233819_b_, 50.0D)
-				.func_233815_a_(Attributes.field_233818_a_, 15.0D).func_233815_a_(Attributes.field_233821_d_, 0.1D)
-				.func_233815_a_(Attributes.field_233823_f_, 4.0D);
+				.func_233815_a_(Attributes.field_233818_a_, 40.0D).func_233815_a_(Attributes.field_233821_d_, 0.1D)
+				.func_233815_a_(Attributes.field_233823_f_, 1.5D);
 	}
 
 	public static boolean spawning(EntityType<DarthJarJarEntity> p_223337_0_, IWorld p_223337_1_, SpawnReason reason,
@@ -70,12 +71,9 @@ public class DarthJarJarEntity extends MonsterEntity {
 		return 1.74F;
 	}
 
-	@Nullable
-	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
 			@Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-		return spawnDataIn;
+		return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 	}
 
 	@Override
@@ -103,6 +101,16 @@ public class DarthJarJarEntity extends MonsterEntity {
 		if (itementity != null) {
 			itementity.setNoDespawn();
 		}
+	}
+
+	@Override
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.WATER;
+	}
+
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
 	}
 
 }

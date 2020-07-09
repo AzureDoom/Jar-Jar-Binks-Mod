@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import mod.azure.jarjar.entity.ai.goals.JarJarAttackGoal;
 import mod.azure.jarjar.util.ModSoundEvents;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -20,6 +21,13 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.DolphinEntity;
+import net.minecraft.entity.passive.SquidEntity;
+import net.minecraft.entity.passive.TurtleEntity;
+import net.minecraft.entity.passive.fish.CodEntity;
+import net.minecraft.entity.passive.fish.PufferfishEntity;
+import net.minecraft.entity.passive.fish.SalmonEntity;
+import net.minecraft.entity.passive.fish.TropicalFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -43,7 +51,7 @@ public class JarJarEntity extends MonsterEntity {
 	public static AttributeModifierMap.MutableAttribute func_234200_m_() {
 		return MobEntity.func_233666_p_().func_233815_a_(Attributes.field_233819_b_, 50.0D)
 				.func_233815_a_(Attributes.field_233818_a_, 15.0D).func_233815_a_(Attributes.field_233821_d_, 0.1D)
-				.func_233815_a_(Attributes.field_233823_f_, 4.0D);
+				.func_233815_a_(Attributes.field_233823_f_, 1.0D);
 	}
 
 	public static boolean spawning(EntityType<JarJarEntity> p_223337_0_, IWorld p_223337_1_, SpawnReason reason,
@@ -61,8 +69,14 @@ public class JarJarEntity extends MonsterEntity {
 		this.goalSelector.addGoal(2, new JarJarAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, CodEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PufferfishEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SalmonEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, TropicalFishEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SquidEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, TurtleEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, DolphinEntity.class, true));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 	}
 
 	@Override
@@ -70,12 +84,9 @@ public class JarJarEntity extends MonsterEntity {
 		return 1.74F;
 	}
 
-	@Nullable
-	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
 			@Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-		return spawnDataIn;
+		return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 	}
 
 	@Override
@@ -96,13 +107,31 @@ public class JarJarEntity extends MonsterEntity {
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
 	}
-	
+
+	protected boolean shouldDrown() {
+		return false;
+	}
+
+	public boolean canBreatheUnderwater() {
+		return true;
+	}
+
 	protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {
 		super.dropSpecialItems(source, looting, recentlyHitIn);
-		ItemEntity itementity = this.entityDropItem(Items.TOTEM_OF_UNDYING);
+		ItemEntity itementity = this.entityDropItem(Items.PUFFERFISH);
 		if (itementity != null) {
 			itementity.setNoDespawn();
 		}
+	}
+
+	@Override
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.WATER;
+	}
+
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
 	}
 
 }

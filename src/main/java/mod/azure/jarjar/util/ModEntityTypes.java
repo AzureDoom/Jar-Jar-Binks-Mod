@@ -16,11 +16,11 @@ public class ModEntityTypes {
 			JarJarMod.MODID);
 
 	public static final RegistryObject<EntityType<JarJarEntity>> JARJAR = ENTITY_TYPES.register("jarjar",
-			() -> EntityType.Builder.create(JarJarEntity::new, EntityClassification.MISC).size(0.6f, 1.95F)
+			() -> EntityType.Builder.create(JarJarEntity::new, EntityClassification.MONSTER).size(0.6f, 1.95F)
 					.build(new ResourceLocation(JarJarMod.MODID, "jarjar").toString()));
 	
 	public static final RegistryObject<EntityType<DarthJarJarEntity>> DARTHJARJAR = ENTITY_TYPES.register("darthbinks",
-			() -> EntityType.Builder.create(DarthJarJarEntity::new, EntityClassification.MISC).size(0.6f, 1.95F)
+			() -> EntityType.Builder.create(DarthJarJarEntity::new, EntityClassification.MONSTER).size(0.6f, 1.95F)
 					.build(new ResourceLocation(JarJarMod.MODID, "darthbinks").toString()));
 
 }

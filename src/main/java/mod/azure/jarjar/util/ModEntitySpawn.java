@@ -13,15 +13,15 @@ public class ModEntitySpawn {
 
 	public static void registerEntityWorldSpawns() {
 
-		registerEntityWorldSpawn(ModEntityTypes.JARJAR.get(), 50, 4, 9, Biomes.SWAMP, Biomes.SWAMP_HILLS);
-		registerEntityWorldSpawn(ModEntityTypes.DARTHJARJAR.get(), 50, 4, 9, Biomes.field_235250_aA_,
+		registerEntityWorldSpawn(ModEntityTypes.JARJAR.get(), 35, 1, 1, Biomes.SWAMP, Biomes.SWAMP_HILLS);
+		registerEntityWorldSpawn(ModEntityTypes.DARTHJARJAR.get(), 35, 1, 1, Biomes.field_235250_aA_,
 				Biomes.field_235251_aB_, Biomes.field_235252_ay_, Biomes.field_235253_az_, Biomes.field_235254_j_);
 	}
 
 	public static void EntitySpawnPlacementRegistry() {
 
 		EntitySpawnPlacementRegistry.register(ModEntityTypes.JARJAR.get(),
-				EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+				EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
 				JarJarEntity::spawning);
 
 		EntitySpawnPlacementRegistry.register(ModEntityTypes.DARTHJARJAR.get(),
