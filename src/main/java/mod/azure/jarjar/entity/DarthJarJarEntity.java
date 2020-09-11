@@ -19,10 +19,8 @@ import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
@@ -31,6 +29,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -42,9 +41,10 @@ public class DarthJarJarEntity extends MonsterEntity {
 	}
 
 	public static AttributeModifierMap.MutableAttribute func_234200_m_() {
-		return MobEntity.func_233666_p_().func_233815_a_(Attributes.field_233819_b_, 50.0D)
-				.func_233815_a_(Attributes.field_233818_a_, 40.0D).func_233815_a_(Attributes.field_233821_d_, 0.1D)
-				.func_233815_a_(Attributes.field_233823_f_, 1.5D);
+		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0D)
+				.createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
+				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.1D)
+				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.5D);
 	}
 
 	public static boolean spawning(EntityType<DarthJarJarEntity> p_223337_0_, IWorld p_223337_1_, SpawnReason reason,
@@ -71,8 +71,11 @@ public class DarthJarJarEntity extends MonsterEntity {
 		return 1.74F;
 	}
 
-	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+	@Nullable
+	@Override
+	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
 			@Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 		return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 	}
 
@@ -93,14 +96,6 @@ public class DarthJarJarEntity extends MonsterEntity {
 
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
-	}
-
-	protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {
-		super.dropSpecialItems(source, looting, recentlyHitIn);
-		ItemEntity itementity = this.entityDropItem(Items.field_234760_kn_);
-		if (itementity != null) {
-			itementity.setNoDespawn();
-		}
 	}
 
 	@Override

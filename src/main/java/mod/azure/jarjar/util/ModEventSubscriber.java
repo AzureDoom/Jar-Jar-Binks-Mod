@@ -18,15 +18,14 @@ public class ModEventSubscriber {
 	@SubscribeEvent
 	public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 		event.getRegistry().registerAll(ModEntityTypes.JARJAR.get(), ModEntityTypes.DARTHJARJAR.get());
-		ModEntitySpawn.registerEntityWorldSpawns();
+		ModEntitySpawn.addSpawnEntries();
 		ModEntitySpawn.EntitySpawnPlacementRegistry();
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void imstuff(final RegistryEvent.Register<EntityType<?>> event) {
-		GlobalEntityTypeAttributes.put(ModEntityTypes.DARTHJARJAR.get(),
-				DarthJarJarEntity.func_234200_m_().func_233813_a_());
-		GlobalEntityTypeAttributes.put(ModEntityTypes.JARJAR.get(), JarJarEntity.func_234200_m_().func_233813_a_());
+		GlobalEntityTypeAttributes.put(ModEntityTypes.DARTHJARJAR.get(), DarthJarJarEntity.func_234200_m_().create());
+		GlobalEntityTypeAttributes.put(ModEntityTypes.JARJAR.get(), JarJarEntity.func_234200_m_().create());
 	}
 
 	public static <T extends IForgeRegistryEntry<T>> T setup(final T entry, final String name) {
