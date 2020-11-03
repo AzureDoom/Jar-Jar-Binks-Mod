@@ -18,7 +18,6 @@ public class ModEventSubscriber {
 	@SubscribeEvent
 	public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 		event.getRegistry().registerAll(ModEntityTypes.JARJAR.get(), ModEntityTypes.DARTHJARJAR.get());
-		ModEntitySpawn.addSpawnEntries();
 		ModEntitySpawn.EntitySpawnPlacementRegistry();
 	}
 
